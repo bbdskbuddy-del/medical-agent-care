@@ -14,13 +14,13 @@ st.set_page_config(
 
 I18N = {
     "zh": {
-    "lang_name": "简体中文",
+        "lang_name": "简体中文",
         "title": "MACE 风险评估",
         "subtitle": "按步骤上传影像和临床报告，系统会自动给出风险等级和标准化建议。",
-    "mode_label": "显示模式",
-    "mode_normal": "普通模式",
-    "mode_senior": "老人模式",
-    "tech_toggle": "显示接口预留",
+        "mode_label": "显示模式",
+        "mode_normal": "普通模式",
+        "mode_senior": "老人模式",
+        "tech_toggle": "显示接口预留",
         "guide_title": "使用引导",
         "guide_1": "先上传 DICOM 影像文件，再上传临床报告 .txt 文件。",
         "guide_2": "点击开始评估后，页面会依次显示影像处理中、文本解析中、风险评估中。",
@@ -83,17 +83,91 @@ I18N = {
         ],
         "advanced_values": "补充指标录入",
         "basic_assist": "如果报告里有明确数值，也可以在这里补充，方便更准确地演示。",
-    }
+    },
+    "en": {
+        "lang_name": "English",
+        "title": "MACE Risk Assessment",
+        "subtitle": "Upload imaging and clinical reports step by step. The system will show a risk level and standardized suggestions automatically.",
+        "mode_label": "Display Mode",
+        "mode_normal": "Normal Mode",
+        "mode_senior": "Senior Mode",
+        "tech_toggle": "Show interface placeholder",
+        "guide_title": "Quick Guide",
+        "guide_1": "Upload the DICOM imaging file first, then the clinical report in .txt format.",
+        "guide_2": "After starting the assessment, the page will show imaging processing, text parsing, and risk evaluation in order.",
+        "guide_3": "Optional details can be expanded, but they stay hidden by default so the patient flow stays simple.",
+        "image_title": "1. Imaging Upload",
+        "image_help": "Upload: DICOM imaging file",
+        "text_title": "2. Text Upload",
+        "text_help": "Upload: clinical report .txt file",
+        "button_title": "3. Run Assessment",
+        "button_text": "Start MACE Risk Assessment",
+        "status_title": "4. Status Area",
+        "status_wait": "Waiting for submission",
+        "status_image": "Processing imaging",
+        "status_text": "Parsing text",
+        "status_risk": "Evaluating risk",
+        "risk_title": "5. Core Output 1",
+        "risk_wait": "Please upload imaging and report before starting the assessment.",
+        "risk_level_label": "MACE risk level",
+        "risk_low": "Low",
+        "risk_mid": "Medium",
+        "risk_high": "High",
+        "risk_scale": "Risk score",
+        "suggest_title": "6. Core Output 2",
+        "suggest_wait": "Standardized clinical suggestions will appear here.",
+        "suggest_header": "Standardized recommendations",
+        "tech_title": "Unified Agent Interface Placeholder",
+        "tech_subtitle": "Hidden by default on the patient side. Can be connected later to the integrated single agent.",
+        "tech_api_title": "Interface mapping",
+        "tech_api_input": "Unified input",
+        "tech_api_output": "Unified output",
+        "advanced_title": "More Information (Hidden by Default)",
+        "advanced_note": "This section keeps the extra inputs needed by the original workflow, but stays collapsed for patients.",
+        "patient_name": "Name or ID (optional)",
+        "age": "Age",
+        "sex": "Sex",
+        "sex_options": ["Female", "Male", "Other"],
+        "note": "Recent symptom description (optional)",
+        "troponin": "Troponin cTnI/T (ng/mL)",
+        "bnp": "BNP / NT-proBNP (pg/mL)",
+        "qtc": "QTc interval (ms)",
+        "lvef": "LVEF (%)",
+        "submit_help": "The risk level and suggestions will update after assessment.",
+        "disclaimer": "This page is for risk reference only and does not replace a physician visit. Seek care if symptoms persist.",
+        "fallback_img": "No imaging file uploaded",
+        "fallback_txt": "No clinical report uploaded",
+        "tips_low": [
+            "Continue routine follow-up and keep a stable daily routine.",
+            "Record symptom changes for later comparison.",
+            "Maintain moderate activity and a steady diet.",
+        ],
+        "tips_mid": [
+            "A recent follow-up is recommended. Confirm the report changes with a clinician.",
+            "If symptoms fluctuate noticeably, consider contacting a doctor earlier.",
+            "Reduce fatigue and prioritize rest.",
+        ],
+        "tips_high": [
+            "Please contact a doctor promptly for an in-person evaluation.",
+            "Bring the original imaging and report to the next visit.",
+            "If symptoms continue or worsen, seek care as soon as possible.",
+        ],
+        "advanced_values": "Additional metrics",
+        "basic_assist": "If the report already contains numeric values, you can fill them here for a more accurate demo.",
+    },
 }
 
 
-def tr(lang: str, key: str):
-    return I18N[lang][key]
 
+def tr(lang: str, key: str):
+    return I18N.get(lang, I18N["zh"]).get(key, key)
 
 def build_style(senior_mode: bool, lang: str) -> str:
     base = 1.16 if senior_mode else 1.0
     title = 1.12 if senior_mode else 1.0
+    drop_title = "将文件拖放到这里" if lang == "zh" else "Drop files here"
+    drop_help = "支持拖拽上传，适合患者直接操作" if lang == "zh" else "Drag and drop upload, suitable for patients"
+    browse_text = "浏览文件" if lang == "zh" else "Browse files"
     return f"""
     <style>
       :root {{
@@ -118,7 +192,7 @@ def build_style(senior_mode: bool, lang: str) -> str:
 
       .block-container {{
         max-width: 980px;
-        padding-top: 1.0rem;
+        padding-top: 4.5rem;
         padding-bottom: 2.2rem;
       }}
 
@@ -337,7 +411,7 @@ def build_style(senior_mode: bool, lang: str) -> str:
       }}
 
       .stFileUploader [data-testid="stFileUploaderDropzoneInstructions"] > div::before {{
-        content: "将文件拖放到这里";
+        content: "{drop_title}";
         visibility: visible;
         display: block;
         color: #35576b;
@@ -345,7 +419,7 @@ def build_style(senior_mode: bool, lang: str) -> str:
       }}
 
       .stFileUploader [data-testid="stFileUploaderDropzoneInstructions"] > div::after {{
-        content: "支持拖拽上传，适合患者直接操作";
+        content: "{drop_help}";
         visibility: visible;
         display: block;
         margin-top: 0.2rem;
@@ -353,12 +427,44 @@ def build_style(senior_mode: bool, lang: str) -> str:
         font-size: calc(0.92rem * {base});
       }}
 
-      .stFileUploader button {{
+              .stFileUploader button {{
         background: linear-gradient(135deg, #dceff9, #fff0e4) !important;
         border: 1px solid #d4e1ea !important;
-        color: #35576b !important;
         border-radius: 12px !important;
+        min-width: 8.8rem !important;
+        height: 3rem !important;
+        padding: 0 1rem !important;
+        position: relative !important;
+        overflow: hidden !important;
+        color: #35576b !important;
         font-weight: 700 !important;
+      }}
+
+      /* 先盖掉原生文字层，彻底消除重影 */
+      .stFileUploader button::before {{
+        content: "";
+        position: absolute;
+        inset: 1px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #dceff9, #fff0e4);
+        z-index: 2;
+        pointer-events: none;
+      }}
+
+      /* 再画自定义文案 */
+      .stFileUploader button::after {{
+        content: "{browse_text}";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #35576b;
+        font-size: calc(0.95rem * {base});
+        font-weight: 700;
+        white-space: nowrap;
+        z-index: 3;
+        pointer-events: none;
       }}
 
       .stButton > button, .stFormSubmitButton > button {{
@@ -505,43 +611,43 @@ lang = st.session_state["lang"]
 mode = st.session_state["mode"]
 senior_mode = mode == "senior"
 
-top_left, top_right = st.columns([1.2, 1.0], gap="small")
-with top_right:
-  control_left, control_mid, control_right = st.columns([1.1, 1.1, 1.1])
-  with control_left:
+# 替换原来的 top_left, top_right = st.columns(...) 这一块
+# 改为这样：
+
+control_col1, control_col2, control_col3, spacer = st.columns([1.5, 1.8, 1.8, 3.0], gap="small")
+
+with control_col1:
     lang = st.selectbox(
-      tr(st.session_state["lang"], "mode_label"),
-      options=["zh", "en"],
-      index=0 if st.session_state["lang"] == "zh" else 1,
-      format_func=lambda key: tr(key, "lang_name") if key == "zh" else "English",
-      label_visibility="collapsed",
+        "🌐",
+        options=["zh", "en"],
+        index=0 if st.session_state["lang"] == "zh" else 1,
+        format_func=lambda key: tr(key, "lang_name") if key == "zh" else "English",
+        label_visibility="collapsed",
+        key="lang_select"
     )
-  with control_mid:
+
+with control_col2:
     mode = st.selectbox(
-      tr(lang, "mode_label"),
-      options=["normal", "senior"],
-      index=0 if st.session_state["mode"] == "normal" else 1,
-      format_func=lambda key: tr(lang, "mode_normal") if key == "normal" else tr(lang, "mode_senior"),
-      label_visibility="collapsed",
+        "👓",
+        options=["normal", "senior"],
+        index=0 if st.session_state["mode"] == "normal" else 1,
+        format_func=lambda key: tr(lang, "mode_normal") if key == "normal" else tr(lang, "mode_senior"),
+        label_visibility="collapsed",
+        key="mode_select"
     )
-  with control_right:
-    st.session_state["show_tech"] = st.checkbox(tr(lang, "tech_toggle"), value=st.session_state["show_tech"])
+
+with control_col3:
+    st.session_state["show_tech"] = st.checkbox(
+        "⚙️ " + tr(lang, "tech_toggle"), 
+        value=st.session_state["show_tech"],
+        key="tech_checkbox"
+    )
 
 st.session_state["lang"] = lang
 st.session_state["mode"] = mode
 senior_mode = mode == "senior"
 
 st.markdown(build_style(senior_mode, lang), unsafe_allow_html=True)
-
-st.markdown(
-  f"""
-  <div class="top-controls">
-    <span class="top-pill">{tr(lang, 'mode_label')}：{tr(lang, 'mode_senior') if senior_mode else tr(lang, 'mode_normal')}</span>
-    <span class="top-pill">{tr(lang, 'lang_name') if lang == 'zh' else 'English'}</span>
-  </div>
-  """,
-  unsafe_allow_html=True,
-)
 
 st.markdown(
     """
