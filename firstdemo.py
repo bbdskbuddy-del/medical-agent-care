@@ -20,11 +20,9 @@ I18N = {
         "mode_label": "显示模式",
         "mode_normal": "普通模式",
         "mode_senior": "老人模式",
-        "tech_toggle": "显示接口预留",
-        "guide_title": "使用引导",
-        "guide_1": "先上传 DICOM 影像文件，再上传临床报告 .txt 文件。",
-        "guide_2": "点击开始评估后，页面会依次显示影像处理中、文本解析中、风险评估中。",
-        "guide_3": "如需补充信息，可展开高级选项，但默认不会打扰患者操作。",
+        "guide_title": "就诊前说明",
+        "guide_1": "先准备好影像文件和临床报告，再开始评估。",
+        "guide_2": "上传后点击开始评估，页面会显示处理进度、风险等级和建议。",
         "image_title": "1. 影像上传框",
         "image_help": "上传：DICOM 影像文件",
         "text_title": "2. 文本上传框",
@@ -46,22 +44,6 @@ I18N = {
         "suggest_title": "6. 核心输出 2",
         "suggest_wait": "标准化诊疗建议会在这里展示。",
         "suggest_header": "标准化诊疗建议",
-        "tech_title": "统一 Agent 接口预留",
-        "tech_subtitle": "患者端默认隐藏，后续可直接接入组员整合后的单一 Agent。",
-        "tech_api_title": "接口映射",
-        "tech_api_input": "统一输入",
-        "tech_api_output": "统一输出",
-        "advanced_title": "更多信息（默认隐藏）",
-        "advanced_note": "这里保留原始功能所需的补充录入，患者端默认折叠。",
-        "patient_name": "姓名或编号（可选）",
-        "age": "年龄",
-        "sex": "性别",
-        "sex_options": ["女", "男", "其他"],
-        "note": "近期症状描述（可选）",
-        "troponin": "肌钙蛋白 cTnI/T（ng/mL）",
-        "bnp": "BNP / NT-proBNP（pg/mL）",
-        "qtc": "QTc 间期（ms）",
-        "lvef": "LVEF（%）",
         "submit_help": "评估后会自动更新风险等级与建议。",
         "disclaimer": "本页面用于风险参考，不替代医生面诊。如持续不适，请及时就医。",
         "fallback_img": "尚未上传影像文件",
@@ -81,8 +63,6 @@ I18N = {
             "复查时请携带影像和报告原件。",
             "如不适持续或加重，请尽早就医。",
         ],
-        "advanced_values": "补充指标录入",
-        "basic_assist": "如果报告里有明确数值，也可以在这里补充，方便更准确地演示。",
     },
     "en": {
         "lang_name": "English",
@@ -91,11 +71,9 @@ I18N = {
         "mode_label": "Display Mode",
         "mode_normal": "Normal Mode",
         "mode_senior": "Senior Mode",
-        "tech_toggle": "Show interface placeholder",
         "guide_title": "Quick Guide",
         "guide_1": "Upload the DICOM imaging file first, then the clinical report in .txt format.",
         "guide_2": "After starting the assessment, the page will show imaging processing, text parsing, and risk evaluation in order.",
-        "guide_3": "Optional details can be expanded, but they stay hidden by default so the patient flow stays simple.",
         "image_title": "1. Imaging Upload",
         "image_help": "Upload: DICOM imaging file",
         "text_title": "2. Text Upload",
@@ -117,22 +95,6 @@ I18N = {
         "suggest_title": "6. Core Output 2",
         "suggest_wait": "Standardized clinical suggestions will appear here.",
         "suggest_header": "Standardized recommendations",
-        "tech_title": "Unified Agent Interface Placeholder",
-        "tech_subtitle": "Hidden by default on the patient side. Can be connected later to the integrated single agent.",
-        "tech_api_title": "Interface mapping",
-        "tech_api_input": "Unified input",
-        "tech_api_output": "Unified output",
-        "advanced_title": "More Information (Hidden by Default)",
-        "advanced_note": "This section keeps the extra inputs needed by the original workflow, but stays collapsed for patients.",
-        "patient_name": "Name or ID (optional)",
-        "age": "Age",
-        "sex": "Sex",
-        "sex_options": ["Female", "Male", "Other"],
-        "note": "Recent symptom description (optional)",
-        "troponin": "Troponin cTnI/T (ng/mL)",
-        "bnp": "BNP / NT-proBNP (pg/mL)",
-        "qtc": "QTc interval (ms)",
-        "lvef": "LVEF (%)",
         "submit_help": "The risk level and suggestions will update after assessment.",
         "disclaimer": "This page is for risk reference only and does not replace a physician visit. Seek care if symptoms persist.",
         "fallback_img": "No imaging file uploaded",
@@ -152,8 +114,6 @@ I18N = {
             "Bring the original imaging and report to the next visit.",
             "If symptoms continue or worsen, seek care as soon as possible.",
         ],
-        "advanced_values": "Additional metrics",
-        "basic_assist": "If the report already contains numeric values, you can fill them here for a more accurate demo.",
     },
 }
 
@@ -370,33 +330,6 @@ def build_style(senior_mode: bool, lang: str) -> str:
         color: #234154;
       }}
 
-      .tech-panel {{
-        border: 1px solid #d2dee7;
-        background: linear-gradient(135deg, #ffffff, #f9fcfe);
-        border-radius: 18px;
-        padding: 0.9rem 1rem;
-        margin-bottom: 0.9rem;
-      }}
-
-      .tech-grid {{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.6rem;
-        margin-top: 0.65rem;
-      }}
-
-      .tech-item {{
-        border-radius: 14px;
-        background: #f6fbff;
-        border: 1px solid #d7e5ee;
-        padding: 0.8rem 0.9rem;
-      }}
-
-      .tech-item strong {{
-        display: block;
-        margin-bottom: 0.2rem;
-      }}
-
       .stFileUploader [data-testid="stFileUploaderDropzone"] {{
         border: 1px dashed #bcd6e6 !important;
         background: linear-gradient(135deg, #f9fdff, #fffaf5) !important;
@@ -601,20 +534,15 @@ if "trend_data" not in st.session_state:
     st.session_state["trend_data"] = [78, 80, 82, 84, 85]
 
 if "lang" not in st.session_state:
-  st.session_state["lang"] = "zh"
+    st.session_state["lang"] = "zh"
 if "mode" not in st.session_state:
-  st.session_state["mode"] = "normal"
-if "show_tech" not in st.session_state:
-  st.session_state["show_tech"] = False
+    st.session_state["mode"] = "normal"
 
 lang = st.session_state["lang"]
 mode = st.session_state["mode"]
 senior_mode = mode == "senior"
 
-# 替换原来的 top_left, top_right = st.columns(...) 这一块
-# 改为这样：
-
-control_col1, control_col2, control_col3, spacer = st.columns([1.5, 1.8, 1.8, 3.0], gap="small")
+control_col1, control_col2, control_col3 = st.columns([1.5, 1.8, 1.8], gap="small")
 
 with control_col1:
     lang = st.selectbox(
@@ -637,11 +565,7 @@ with control_col2:
     )
 
 with control_col3:
-    st.session_state["show_tech"] = st.checkbox(
-        "⚙️ " + tr(lang, "tech_toggle"), 
-        value=st.session_state["show_tech"],
-        key="tech_checkbox"
-    )
+  st.caption(" ")
 
 st.session_state["lang"] = lang
 st.session_state["mode"] = mode
@@ -666,28 +590,11 @@ st.markdown(
       <ul>
         <li>{tr(lang, 'guide_1')}</li>
         <li>{tr(lang, 'guide_2')}</li>
-        <li>{tr(lang, 'guide_3')}</li>
       </ul>
     </div>
     """,
     unsafe_allow_html=True,
 )
-
-with st.expander(tr(lang, "advanced_title"), expanded=False):
-    st.caption(tr(lang, "advanced_note"))
-    st.markdown(f"#### {tr(lang, 'advanced_values')}")
-    st.caption(tr(lang, "basic_assist"))
-    adv_col1, adv_col2 = st.columns(2)
-    with adv_col1:
-        patient_name = st.text_input(tr(lang, "patient_name"))
-        age = st.number_input(tr(lang, "age"), min_value=0, max_value=120, value=60)
-        sex = st.selectbox(tr(lang, "sex"), options=tr(lang, "sex_options"))
-    with adv_col2:
-        troponin = st.number_input(tr(lang, "troponin"), min_value=0.0, max_value=30.0, value=0.05, step=0.01)
-        bnp = st.number_input(tr(lang, "bnp"), min_value=0.0, max_value=20000.0, value=80.0, step=1.0)
-        qtc = st.number_input(tr(lang, "qtc"), min_value=300, max_value=650, value=440, step=1)
-        lvef = st.number_input(tr(lang, "lvef"), min_value=10, max_value=90, value=58, step=1)
-    note = st.text_area(tr(lang, "note"), height=90)
 
 with st.form("mace_form", clear_on_submit=False):
     st.markdown(
@@ -760,15 +667,6 @@ with status_placeholder.container():
 
 if submitted:
     values = parse_report_text(report_text)
-    values.update(
-        {
-            "age": float(age),
-            "troponin": float(troponin),
-            "bnp": float(bnp),
-            "qtc": float(qtc),
-            "lvef": float(lvef),
-        }
-    )
     file_count = int(bool(image_file)) + int(bool(report_file))
 
     with status_placeholder.container():
@@ -831,8 +729,7 @@ if submitted:
             f"""
             <div class="quote">
                 影像文件：{image_name}<br>
-                报告文件：{report_name}<br>
-                姓名/编号：{patient_name if patient_name else '未填写'}
+            报告文件：{report_name}
             </div>
             """,
             unsafe_allow_html=True,
@@ -861,31 +758,3 @@ else:
             unsafe_allow_html=True,
         )
 
-if st.session_state["show_tech"]:
-    st.markdown(
-        f"""
-        <div class="tech-panel">
-          <div class="step-head"><span class="step-num">7</span><span class="step-title">{tr(lang, 'tech_title')}</span></div>
-          <div style="color:#4b6675;">{tr(lang, 'tech_subtitle')}</div>
-          <div class="tech-grid">
-            <div class="tech-item">
-              <strong>{tr(lang, 'tech_api_input')}</strong>
-              /api/patient/submit
-            </div>
-            <div class="tech-item">
-              <strong>{tr(lang, 'tech_api_output')}</strong>
-              /api/patient/heart-status-result
-            </div>
-            <div class="tech-item">
-              <strong>agent_1</strong>
-              /api/module1/ingest-and-clean
-            </div>
-            <div class="tech-item">
-              <strong>agent_2 ~ agent_4</strong>
-              /api/module2/feature-extract · /api/module3/fuse-and-explain · /api/module4/generate-care
-            </div>
-          </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
